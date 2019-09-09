@@ -1,3 +1,3 @@
-output "api endpoint" {
-  value = aws_route53_record.api.name
+output "dynamodb token table" {
+  value = aws_dynamodb_table.token.name
 }
