@@ -15,8 +15,4 @@ resource aws_dynamodb_table token {
     name = var.token-table-range-key
     type = "S"
   }
-  attribute {
-    name = var.token-table-ttl-key
-    type = "N"
-  }
 }
