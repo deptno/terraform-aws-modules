@@ -6,6 +6,7 @@ resource aws_dynamodb_table token {
 
   ttl {
     attribute_name = var.token-table-ttl-key
+    enabled = true
   }
 
   attribute {
