@@ -9,10 +9,6 @@ variable profile {
 	default = "default"
 }
 
-variable domain {
-	description = "domain name eg)tubemon.io"
-	type = string
-}
 variable table_name {
 	description = "table name"
 	type = string
