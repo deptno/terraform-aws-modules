@@ -17,7 +17,7 @@ variable aws_acm_certificate {
 variable region {
 	description = "aws region"
 	type = string
-	value = "ap-northeast-2"
+	default = "ap-northeast-2"
 }
 variable profile {
 	description = "aws profile"
