@@ -9,7 +9,7 @@ provider aws {
 }
 
 resource aws_dynamodb_table yiguana {
-  name         = "${terraform.workspace}-${var.table_name}"
+  name         = var.table_name
   hash_key     = "hk"
   range_key    = "rk"
   billing_mode = "PAY_PER_REQUEST"
@@ -98,18 +98,15 @@ resource aws_dynamodb_table yiguana {
 }
 
 resource aws_s3_bucket yiguana {
-  bucket = "${terraform.workspace}-${var.bucket_name}"
+  bucket = var.bucket_name
   acl    = "private"
   cors_rule {
     allowed_methods = ["POST"]
-    allowed_origins = [terraform.workspace == "default"
-      ? "*"
-      : "https://${var.domain}"
-    ]
+    allowed_origins = var.allowd_origins
   }
 }
 resource aws_cloudfront_origin_access_identity origin_access_identity {
-  comment = "yiguana access identity, ${var.domain}"
+  comment = "yiguana access identity, yiguana"
 }
 resource aws_cloudfront_distribution yiguana {
   origin {
