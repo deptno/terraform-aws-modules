@@ -3,28 +3,24 @@ variable domain {
 	type = string
 }
 variable table_name {
-	description = "domain name eg)tubemon.io"
+	description = "table name"
 	type = string
 }
 variable bucket_name {
-	description = "domain name eg)tubemon.io"
+	description = "content bucket"
 	type = string
 }
 variable aws_acm_certificate {
 	description = "arn: aws_acm_certificate"
 	type = string
 }
-provider aws {
-	region = "ap-northeast-2"
-	profile = "yiguana"
+variable region {
+	description = "aws region"
+	type = string
+	value = "ap-northeast-2"
 }
-provider aws {
-	region = "us-east-1"
-	profile = "yiguana"
-	alias = "virginia"
+variable profile {
+	description = "aws profile"
+	type = string
+	default = "default"
 }
-
-locals {
-	domain = "yiguana.dev.googit.co"
-}
-
