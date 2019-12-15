@@ -151,8 +151,7 @@ resource aws_cloudfront_distribution yiguana {
     response_page_path    = "/index.html"
     response_code         = 200
   }
-  custom_error_response {
-    error_code            = 404
+  custom_error_response { error_code            = 404
     error_caching_min_ttl = 0
     response_page_path    = "/index.html"
     response_code         = 404
@@ -172,3 +171,26 @@ resource aws_cloudfront_distribution yiguana {
     ssl_support_method       = "sni-only"
   }
 }
+resource aws_route53_record cdn {
+  zone_id = var.zone_id
+  name    = var.cdn_domain_name
+  type    = "A"
+  
+  alias {
+    name                   = aws_cloudfront_distribution.yiguana.domain_name
+    zone_id                = aws_cloudfront_distribution.yiguana.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+resource aws_route53_record cdn-aaaa {
+  zone_id = var.zone_id
+  name    = var.cdn_domain_name
+  type    = "AAAA"
+  
+  alias {
+    name                   = aws_cloudfront_distribution.yiguana.domain_name
+    zone_id                = aws_cloudfront_distribution.yiguana.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
