@@ -89,9 +89,14 @@ resource aws_dynamodb_table yiguana {
 resource aws_s3_bucket yiguana {
   bucket = var.bucket_name
   acl    = "private"
+	
   cors_rule {
-    allowed_methods = ["POST"]
+    allowed_methods = [
+      "POST",
+      "GET"
+    ]
     allowed_origins = var.allowd_origins
+    max_age_seconds = 86400
   }
 }
 resource aws_cloudfront_origin_access_identity origin_access_identity {
@@ -112,8 +117,8 @@ resource aws_cloudfront_distribution yiguana {
   wait_for_deployment = false
 
   aliases = [
-    aws_s3_bucket.yiguana.id,
-  ]
+    var.cdn_domain_name
+	]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
