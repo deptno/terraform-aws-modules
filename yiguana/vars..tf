@@ -1,14 +1,3 @@
-variable region {
-	description = "aws region"
-	type = string
-	default = "ap-northeast-2"
-}
-variable profile {
-	description = "aws profile"
-	type = string
-	default = "default"
-}
-
 variable table_name {
 	description = "table name"
 	type = string

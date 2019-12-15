@@ -1,13 +1,3 @@
-provider aws {
-  region  = var.region
-  profile = var.profile
-}
-provider aws {
-  region  = "us-east-1"
-  profile = var.profile
-  alias   = "virginia"
-}
-
 resource aws_dynamodb_table yiguana {
   name         = var.table_name
   hash_key     = "hk"
@@ -96,7 +86,6 @@ resource aws_dynamodb_table yiguana {
     projection_type = "ALL"
   }
 }
-
 resource aws_s3_bucket yiguana {
   bucket = var.bucket_name
   acl    = "private"
