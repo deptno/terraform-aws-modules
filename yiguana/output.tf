@@ -7,6 +7,6 @@ output s3_bucket {
 output cdn_domain {
 	value = aws_route53_record.cdn.name
 }
-output cloudfront_frontend_id {
+output cloudfront_id {
 	value = aws_cloudfront_distribution.yiguana.id
 }
