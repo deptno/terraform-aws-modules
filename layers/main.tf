@@ -22,5 +22,4 @@ resource aws_lambda_layer_version font_color_emoji {
   compatible_runtimes = [
     "nodejs12.x"
   ]
-  
 }
