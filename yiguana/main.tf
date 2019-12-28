@@ -99,8 +99,33 @@ resource aws_s3_bucket yiguana {
     max_age_seconds = 86400
   }
 }
+data aws_iam_policy_document s3_policy {
+  statement {
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.yiguana.arn}/*"]
+    
+    principals {
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
+    }
+  }
+  
+  statement {
+    actions   = ["s3:ListBucket"]
+    resources = [aws_s3_bucket.yiguana.arn]
+    
+    principals {
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
+    }
+  }
+}
+resource aws_s3_bucket_policy s3_policy {
+  bucket = aws_s3_bucket.yiguana.id
+  policy = data.aws_iam_policy_document.s3_policy.json
+}
 resource aws_cloudfront_origin_access_identity origin_access_identity {
-  comment = "yiguana access identity, yiguana"
+  comment = "yiguana ${var.bucket_name}"
 }
 resource aws_cloudfront_distribution yiguana {
   origin {
@@ -110,6 +135,7 @@ resource aws_cloudfront_distribution yiguana {
       origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
     }
   }
+	
 
   enabled             = true
   is_ipv6_enabled     = true
